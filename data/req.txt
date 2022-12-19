@@ -1,0 +1,2 @@
+X
+SELECT * FROM rooms WHERE contentId = (SELECT id FROM contents WHERE typeId = X)
