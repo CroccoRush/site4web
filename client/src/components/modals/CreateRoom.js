@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import {Button, Dropdown, FloatingLabel, Form, Modal} from "react-bootstrap";
-import {createRoom} from "../../http/RoomAPI";
+import {createRoom} from "../../http/roomAPI";
+import {ROOM_ROUTE} from "../../utils/consts";
+import {useHistory} from "react-router-dom";
 
 const CreateRoom = ({show, onHide, types}) => {
+    const history = useHistory()
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [type, setType] = useState({})
@@ -19,7 +22,10 @@ const CreateRoom = ({show, onHide, types}) => {
         formData.append('file', file)
         formData.append('userId', localStorage.getItem('userId'))
         formData.append('typeId', type.id)
-        createRoom(formData).then(data => onHide())
+        createRoom(formData).then(room => {
+            onHide()
+            history.push(ROOM_ROUTE + `/${room.id}`)
+        })
     }
 
     return (

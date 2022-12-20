@@ -23,7 +23,7 @@ const NavBar = observer(() => {
                 <Navbar.Brand href={HOME_ROUTE}>
                     <img
                         alt=""
-                        src="/logo5.svg"
+                        src="/mainLogo.svg"
                         width="30"
                         height="30"
                         className="d-inline-block align-top"
@@ -38,7 +38,7 @@ const NavBar = observer(() => {
                             >
                                 Комнаты
                             </Button>
-                            { (role === "ADMIN") ?
+                            {(role === "ADMIN") ?
                                 <Button
                                     variant="outline-primary"
                                     onClick={() => history.push(ADMIN_ROUTE)}

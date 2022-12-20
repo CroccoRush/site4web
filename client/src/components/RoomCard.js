@@ -4,7 +4,7 @@ import {useHistory} from "react-router-dom";
 import {ROOM_ROUTE} from "../utils/consts";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
-import {getContent} from "../http/RoomAPI";
+import {getContent} from "../http/roomAPI";
 
 const RoomCard = observer(({room}) => {
     const history = useHistory()

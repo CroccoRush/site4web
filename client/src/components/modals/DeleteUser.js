@@ -1,15 +1,16 @@
 import React, {useState} from 'react';
 import {Button, FloatingLabel, Form, Modal} from "react-bootstrap";
-import {createContentType} from "../../http/roomAPI";
+import {deleteUser} from "../../http/userAPI";
 
-const AddType = ({show, onHide}) => {
+const DeleteUser = ({show, onHide}) => {
     const [value, setValue] = useState('')
 
-    const addType = () => {
-        createContentType(value).then(() => {
-            setValue('')
-            onHide()
-        })
+    const del = () => {
+        deleteUser(value)
+            .finally(() => {
+                onHide()
+                setValue('')
+            })
     }
 
     return (
@@ -21,21 +22,21 @@ const AddType = ({show, onHide}) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Добавить новый тип контента
+                    Удалить пользователя
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                    <Form.Label>Название типа</Form.Label>
+                    <Form.Label>Email пользователя</Form.Label>
                     <FloatingLabel
                         controlId="floatingInput"
-                        label="Typename..."
+                        label="Email..."
                         className="mb-3"
                         style={{color: "#858585"}}
                     >
                         <Form.Control
                             as="textarea"
-                            placeholder="Typename"
+                            placeholder="Email"
                             value={value}
                             onChange={e => setValue(e.target.value)}
                         />
@@ -44,11 +45,11 @@ const AddType = ({show, onHide}) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant={"outline-warning"} onClick={onHide}>Закрыть</Button>
-                <Button variant={"outline-primary"} type="submit" onClick={addType}>Добавить</Button>
+                <Button variant={"outline-danger"} type="submit" onClick={del}>Удалить</Button>
             </Modal.Footer>
         </Modal>
     );
 };
 
 
-export default AddType;
+export default DeleteUser;

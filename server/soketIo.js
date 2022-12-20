@@ -4,29 +4,32 @@ const fileUpload = require("express-fileupload");
 const {createServer} = require("http");
 const {Server} = require("socket.io");
 const {Chat, Message, User} = require("./models/models");
+
 const chatApi = express()
 chatApi.use(cors())
 chatApi.use(express.json())
 chatApi.use(fileUpload({}))
-const httpServer = createServer(chatApi);
 
-const io = new Server(httpServer, {
+const ioServer = createServer(chatApi);
+
+const CORS_ORIGIN = process.env.CORS_ORIGIN
+
+const io = new Server(ioServer, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: CORS_ORIGIN,
         methods: ["GET", "POST"],
         credentials: true
     },
-    wsEngine: require("eiows").Server,
 });
 
-const soketIo = (socket) => {
+const socketIo = (socket) => {
     socket.on("NEW_MESSAGE", async (arg) => {
         const {text, chatId, userId} = arg
         const chat = await Chat.findOne({ where: { id: chatId } })
         const user = await User.findOne({ where: { id: userId } })
         if (chat && user) {
             const message = await Message.create({text, chatId, userId, senderName: user.email});
-            socket.emit("NEW_MESSAGE", {
+            socket.broadcast.emit("NEW_MESSAGE", {
                 id: message.id,
                 text: message.text,
                 userId,
@@ -40,9 +43,9 @@ const soketIo = (socket) => {
     socket.on("disconnect", () => {
         console.log(socket.connected);
     });
-
 }
 
-io.on("connection", soketIo);
+io.on("connection", socketIo);
 
-module.exports = httpServer
+
+module.exports = ioServer

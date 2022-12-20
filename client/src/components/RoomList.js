@@ -8,7 +8,7 @@ const RoomList = observer(() => {
     const {room} = useContext(Context)
 
     return (
-        <Row className={"d-flex w-100 align-items-center justify-content-around"}>
+        <Row style={{height: '75vh'}} className={"d-flex w-100 align-items-center justify-content-around"}>
             {
                 room.rooms.map(room =>
                     <RoomCard key={room.id} room={room}/>

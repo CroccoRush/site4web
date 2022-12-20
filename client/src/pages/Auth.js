@@ -24,7 +24,7 @@ const Auth = observer(() => {
             }
             user.setUser(data)
             user.setIsAuth(true)
-            history.push(EXPOSITION_ROUTE)
+            history.push(EXPOSITION_ROUTE);
         } catch (e) {
             alert(e.response.data.message)
         }

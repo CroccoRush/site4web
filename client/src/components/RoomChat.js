@@ -5,7 +5,6 @@ import {observer} from "mobx-react-lite";
 import MessageCard from "./MessageCard";
 
 const RoomChat = observer(({chatId, oldMessages}) => {
-    //TODO сделать чать чуть красивее
     const [message, setMessage] = useState('')
     const [messages, setMessages] = useState([])
     const userId = localStorage.getItem("userId");
@@ -25,13 +24,10 @@ const RoomChat = observer(({chatId, oldMessages}) => {
         pingTimeout: 160000
     })
     socket.on("connect", () => {
-        const engine = socket.io.engine;
-        console.log(engine.transport.name);
         socket.on('NEW_MESSAGE', (arg) => {
             setMessages(messages.concat([arg]))
         });
-        socket.on("disconnect", (reason) => {
-            console.log(reason)
+        socket.on("disconnect", () => {
         });
     })
 
@@ -40,11 +36,11 @@ const RoomChat = observer(({chatId, oldMessages}) => {
             return
         }
         socket.emit("NEW_MESSAGE", {text: message, userId, chatId});
-        console.log(socket.connected);
         setMessage('')
     }
     //------------------------------------------------------------
 
+    //TODO сделать чать чуть красивее оформление сообщений
     return (
         <Container fluid="md" className={"d-flex flex-column align-items-center border-5 border-danger"}>
             <div

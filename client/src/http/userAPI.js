@@ -18,8 +18,15 @@ export const login = async (email, password) => {
 }
 
 export const check = async () => {
-    //TODO научиться отлавливать ошибку
-    const {data} = await $authHost.get('api/user/auth')
+    const {data} = await $authHost.get('api/user/auth' )
     localStorage.setItem('token', data.token)
     return jwtDecode(data.token)
+}
+
+export const deleteUser = async (email) => {
+    await $authHost.delete('api/user/delete',  {data : {email : email}})
+}
+
+export const changeRole = async (email, role) => {
+    await $authHost.put('api/user/role', {email, role})
 }

@@ -7,6 +7,6 @@ router.post('/', roomController.create)
 router.get('/', roomController.getAll)
 router.get('/count/', roomController.getCount)
 router.get('/:id', roomController.getOne)
-router.delete('/', roomController.delete)
+router.delete('/delete', roomController.delete)
 
 module.exports = router

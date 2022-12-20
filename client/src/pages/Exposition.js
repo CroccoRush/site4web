@@ -4,7 +4,7 @@ import TypeBar from "../components/TypeBar";
 import RoomList from "../components/RoomList";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
-import {getAllRooms, getContentTypes, getRoomsCount} from "../http/RoomAPI";
+import {getAllRooms, getContentTypes, getRoomsCount} from "../http/roomAPI";
 import CreateRoom from "../components/modals/CreateRoom";
 import Pages from "../components/Pages";
 
@@ -55,7 +55,10 @@ const Exposition = observer(() => {
                         <Button
                             variant="outline-primary"
                             id="button-addon1"
-                            onClick={() => setSearchText(searchAria)}
+                            onClick={() => {
+                                room.setSelectedPage(1)
+                                setSearchText(searchAria)
+                            }}
                         >
                             Поиск
                         </Button>

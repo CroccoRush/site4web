@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import {Badge, Button, ListGroup} from "react-bootstrap";
-import {getContentTypesCount, getContentTypes} from "../http/RoomAPI";
+import {getContentTypesCount, getContentTypes} from "../http/roomAPI";
 import {Context} from "../index";
 
 const TypeBar = observer(() => {
@@ -12,12 +12,11 @@ const TypeBar = observer(() => {
             for (let i in data) {
                 getContentTypesCount(data[i].id).then(count => {
                     data[i]['count'] = count
-                    if (++i === data.length) { setTypes(data) }
+                    if (++i === data.length) { setTimeout(setTypes(data), 100) }
                 })
             }
         })
     }, [])
-
 
     return (
         <div>
@@ -47,7 +46,10 @@ const TypeBar = observer(() => {
                     <ListGroup.Item
                         style={{cursor: 'pointer'}}
                         key={type.id}
-                        onClick={() => room.setSelectedTypeId(type.id)}
+                        onClick={() => {
+                            room.setSelectedTypeId(type.id)
+                            room.setSelectedPage(1)
+                        }}
                         as="li"
                         className="d-flex justify-content-between align-items-start"
                     >

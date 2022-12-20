@@ -24,6 +24,10 @@ export const getOneRoom = async (id) => {
     return data
 }
 
+export const deleteRoom = async (id) => {
+    await $authHost.delete('api/room/delete',  {data : {id}})
+}
+
 export const createContentType = async (name) => {
     const {data} = await $authHost.post('api/type', {name})
     return data
@@ -41,11 +45,6 @@ export const getContent = async (id) => {
 
 export const getContentTypesCount = async (typeId) => {
     const {data} = await $authHost.get(`api/content/count?typeId=${typeId}`)
-    return data
-}
-
-export const createChat = async (name) => {
-    const {data} = await $authHost.post('api/chat', {name})
     return data
 }
 

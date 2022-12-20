@@ -49,6 +49,26 @@ class UserController{
             next(ApiError.badRequest(e.message))
         }
     }
+
+    async delete(req, res, next) {
+        try {
+            const {email} = req.body
+            await User.destroy({ where : { email } })
+            return res.json({ result: "ok" })
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+    }
+
+    async changeRole(req, res, next) {
+        try {
+            const {email, role} = req.body
+            await User.update({ role }, { where : { email } })
+            return res.json({ result: "ok" })
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+    }
 }
 
 module.exports = new UserController()

@@ -1,6 +1,5 @@
 const {Room, Chat, Content} = require('../models/models');
 const { Op, QueryTypes } = require("sequelize");
-const {Sequelize} = require("sequelize");
 const sequelize = require('../db')
 const ApiError = require('../error/ApiError');
 const uuid = require('uuid');
@@ -113,8 +112,12 @@ class RoomController{
     async delete(req, res, next) {
         try {
             const {id} = req.body
-            await Room.destroy({ where: { id: id }, force: true })
-            return res.json(`Room ${id} successfully deleted`)
+            const room = await Room.findOne({ where : { id } })
+            //console.log(room.chatId)
+            await Chat.destroy({ where : { id : room.chatId }, force: true })
+            await Content.destroy({ where : { id : room.contentId }, force: true })
+            await Room.destroy({ where : { id }, force: true })
+            return res.json({ result: "ok" })
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }
