@@ -29,7 +29,7 @@ const MessageCard = observer(({message, myMessage}) => {
                 <div className={"d-flex"}>
                 <CardImg
                     style={{ height: '1.5rem'}}
-                    src={"/tmp.svg"}
+                    src={"/messageIcon.svg"}
                 />
                 <h1 style={{fontSize:"16px", margin: "auto 0 auto 0", color:"#eee", fontWeight: "bold"}}>
                     {message.senderName}

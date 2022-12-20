@@ -15,7 +15,7 @@ const Home = () => {
                         Добро пожаловать на наш сайт!!!
                     </h1>
                 </Card.Header>
-                <Card.Img variant="bottom" src="/site4weblogo.jpg" />
+                <Card.Img src="/site4webLogo.svg" />
                 <Card.Header>
                     <h2 className={"m-1"}>
                         Сайт делали:
@@ -26,7 +26,6 @@ const Home = () => {
                         <Vladimir />
                         <Anastasiya />
                     </Container>
-
                 </Card.Body>
                 <Card.Footer className={"text-muted pb-4"}>
                     <Card.Title>Приятного просмотра сайта</Card.Title>
