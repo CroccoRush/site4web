@@ -1,9 +1,9 @@
 import React from 'react';
 import {Container} from "react-bootstrap";
-import AddNewTypes from "../components/AdminCapabilities/AddNewTypes";
-import ChangeUserRoles from "../components/AdminCapabilities/ChangeUserRoles";
-import DeleteUsers from "../components/AdminCapabilities/DeleteUsers";
-import DeleteRooms from "../components/AdminCapabilities/DeleteRooms";
+import AddNewTypes from "../components/admin-capabilities/AddNewTypes";
+import ChangeUserRoles from "../components/admin-capabilities/ChangeUserRoles";
+import DeleteUsers from "../components/admin-capabilities/DeleteUsers";
+import DeleteRooms from "../components/admin-capabilities/DeleteRooms";
 
 const Admin = () => {
     return (

@@ -20,7 +20,9 @@ const NavBar = observer(() => {
     return (
         <Navbar bg="light" variant="light" sticky="top">
             <Container>
-                <Navbar.Brand href={HOME_ROUTE}>
+                <Navbar.Brand
+                    onClick={() => history.push(HOME_ROUTE)}
+                >
                     <img
                         alt=""
                         src="/mainLogo.svg"

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Card, Container} from "react-bootstrap";
-import Anastasiya from "../components/Developers/Anastasiya";
-import Vladimir from "../components/Developers/Vladimir";
+import Anastasiya from "../components/developers/Anastasiya";
+import Vladimir from "../components/developers/Vladimir";
 
 const Home = () => {
     return (

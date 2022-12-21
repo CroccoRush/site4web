@@ -1,24 +1,23 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Button, Col, Container, InputGroup, Row, Form} from "react-bootstrap";
-import TypeBar from "../components/TypeBar";
-import RoomList from "../components/RoomList";
+import TypeBar from "../components/for-exposition/TypeBar";
+import RoomList from "../components/for-exposition/RoomList";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
-import {getAllRooms, getContentTypes, getRoomsCount} from "../http/roomAPI";
-import CreateRoom from "../components/modals/CreateRoom";
-import Pages from "../components/Pages";
+import {getAllRooms, getRoomsCount} from "../http/roomAPI";
+import Pages from "../components/for-exposition/Pages";
+import {CREATINGROOM_ROUTE} from "../utils/consts";
+import {useHistory} from "react-router-dom";
 
 const Exposition = observer(() => {
+    const history = useHistory()
     const {room} = useContext(Context)
-    const [modalShow, setModalShow] = useState(false);
-    const [types, setTypes] = useState([])
     const [roomsCount, setRoomsCount] = useState()
     const [searchText, setSearchText] = useState('')
     const [limit] = useState(2)
     let searchAria
 
     useEffect(() => {
-        getContentTypes().then(data => setTypes(data))
         if (room.selectedTypeId) {
             getAllRooms(searchText, room.selectedTypeId, room.selectedPage, limit).then(data => room.setRooms(data))
             getRoomsCount(searchText, room.selectedTypeId).then(data => setRoomsCount(data))
@@ -35,22 +34,15 @@ const Exposition = observer(() => {
                     <Button
                         variant={"outline-primary"}
                         className={"mb-3 p-2 w-100"}
-                        onClick={() => setModalShow(true)}
+                        onClick={() => {
+                            history.push(CREATINGROOM_ROUTE)
+                        }}
                     >
                         Создать новую комнату
                     </Button>
-                    {
-                        // TODO сделать не форму а отдельную страницу
-                    }
-                    <CreateRoom
-                        show={modalShow}
-                        onHide={() => setModalShow(false)}
-                        types={types}
-                    />
                     <TypeBar/>
                 </Col>
                 <Col md={9} style={{minHeight: '85vh'}} className={"d-flex flex-column align-items-center"}>
-
                     <InputGroup className="mb-3" style={{height: "42px"}}>
                         <Button
                             variant="outline-primary"

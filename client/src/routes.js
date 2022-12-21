@@ -1,15 +1,20 @@
 
-import {ADMIN_ROUTE, EXPOSITION_ROUTE, HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, ROOM_ROUTE} from "./utils/consts";
+import {ADMIN_ROUTE, EXPOSITION_ROUTE, HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, ROOM_ROUTE, CREATINGROOM_ROUTE} from "./utils/consts";
 import Admin from './pages/Admin';
 import Room from "./pages/Room";
 import Exposition from "./pages/Exposition";
 import Auth from "./pages/Auth";
 import Home from "./pages/Home";
+import CreatingRoom from "./pages/CreatingRoom";
 
 export const authRoutes = [
     {
         path: EXPOSITION_ROUTE,
         Component: Exposition
+    },
+    {
+        path: CREATINGROOM_ROUTE,
+        Component: CreatingRoom
     },
     {
         path: ADMIN_ROUTE,

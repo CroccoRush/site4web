@@ -54,11 +54,13 @@ const Auth = observer(() => {
                     <Col className={"d-flex justify-content-between mt-3"}>
                         { isLogin ?
                             <div>
-                                Нет аккаунта? <Nav.Link href={REGISTRATION_ROUTE}> Зарегистрируйтесь </Nav.Link>
+                                Нет аккаунта?
+                                <Nav.Link onClick={() => history.push(REGISTRATION_ROUTE)}> Зарегистрируйтесь </Nav.Link>
                             </div>
                             :
                             <div>
-                                Есть аккаунт? <Nav.Link href={LOGIN_ROUTE}> Войдите </Nav.Link>
+                                Есть аккаунт?
+                                <Nav.Link onClick={() => history.push(LOGIN_ROUTE)}> Войдите </Nav.Link>
                             </div>
                         }
                         <Button

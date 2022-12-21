@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Container} from "react-bootstrap";
-import ContentSpace from "../components/ContentSpace";
-import DescriptionSpace from "../components/DescriptionSpace";
-import RoomChat from "../components/RoomChat";
+import ContentSpace from "../components/for-room/ContentSpace";
+import DescriptionSpace from "../components/for-room/DescriptionSpace";
+import RoomChat from "../components/for-room/RoomChat";
 import {getChat, getChatMessages, getContent, getOneRoom} from "../http/roomAPI";
 import {useParams} from "react-router-dom";
 import {observer} from "mobx-react-lite";
-import DeletingUserRooms from "../components/DeletingUserRooms";
+import DeletingUserRooms from "../components/for-room/DeletingUserRooms";
 
 
 const Room = observer(() => {
@@ -48,12 +48,15 @@ const Room = observer(() => {
                         <></>
                 }
             </Container>
-            <div className={"d-flex w-100 h-100 justify-content-between align-items-center mt-3"}>
-                <div style={{marginRight: "5px"}} className={"d-flex h-100 w-50 flex-column justify-content-between align-items-center"}>
+            <div className={"d-flex w-100 h-100 mt-3"}>
+                <div style={{marginRight: "5px"}} className={"d-flex h-100 w-50 flex-column"}>
                     <ContentSpace contentName={contentName} />
                     <DescriptionSpace description={room.description}/>
                 </div>
-                <div style={{border: "3px solid #ddd", borderRadius: "5px", marginLeft: "5px"}} className={'h-100 w-50 d-flex'}>
+                <div
+                    style={{border: "3px solid #ddd", borderRadius: "5px", marginLeft: "5px"}}
+                    className={'h-100 w-50 d-flex'}
+                >
                     <RoomChat chatId={chat.id} oldMessages={messages}/>
                 </div>
             </div>
