@@ -68,7 +68,7 @@ class RoomController{
 
     async getCount(req, res, next) {
         try {
-            let {name, typeId} = req.query
+            let {name, typeId} = req.body
             if (typeId && name) {
                 const room = await sequelize.query(
                     `SELECT COUNT(*) FROM rooms WHERE \"name\" LIKE '%${name}%' AND \"contentId\" IN (SELECT id FROM contents WHERE \"typeId\" = ${typeId})`,

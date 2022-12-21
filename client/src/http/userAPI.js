@@ -24,7 +24,7 @@ export const check = async () => {
 }
 
 export const deleteUser = async (email) => {
-    await $authHost.delete('api/user/delete',  {data : {email : email}})
+    await $authHost.delete('api/user/delete',  {data : {email}})
 }
 
 export const changeRole = async (email, role) => {

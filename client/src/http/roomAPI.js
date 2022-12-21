@@ -39,22 +39,22 @@ export const getContentTypes = async () => {
 }
 
 export const getContent = async (id) => {
-    const {data} = await $authHost.get(`api/content?id=${id}`)
+    const {data} = await $authHost.get(`api/content`, {params : {id}})
     return data
 }
 
 export const getContentTypesCount = async (typeId) => {
-    const {data} = await $authHost.get(`api/content/count?typeId=${typeId}`)
+    const {data} = await $authHost.get(`api/content/count`, {params : {typeId}})
     return data
 }
 
 export const getChat = async (id) => {
-    const {data} = await $authHost.get(`api/chat?id=${id}`)
+    const {data} = await $authHost.get(`api/chat`, {params : {id}})
     return data
 }
 
 
 export const getChatMessages = async (chatId) => {
-    const {data} = await $authHost.get(`api/message?chatId=${chatId}`)
+    const {data} = await $authHost.get(`api/message`, {params : {chatId}})
     return data
 }

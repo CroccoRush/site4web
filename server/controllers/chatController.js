@@ -25,7 +25,7 @@ class ChatController{
     async delete(req, res, next) {
         try {
             const {id} = res.query
-            await Chat.destroy({where: { id: id } } )
+            await Chat.destroy({where: { id } } )
             return res.json(`Chat ${id} successfully deleted`)
         } catch (e) {
             next(ApiError.badRequest(e.message))

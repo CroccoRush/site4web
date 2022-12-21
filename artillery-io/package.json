@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "artillery-plugin-expect": "^2.1.0"
+  }
+}
