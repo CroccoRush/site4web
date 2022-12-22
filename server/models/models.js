@@ -12,7 +12,6 @@ const User = sequelize.define('user', {
 const Room = sequelize.define('room', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
-    owner_id: {type: DataTypes.INTEGER},
     description: {type: DataTypes.STRING},
 })
 

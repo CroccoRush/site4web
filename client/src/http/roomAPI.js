@@ -33,8 +33,8 @@ export const createContentType = async (name) => {
     return data
 }
 
-export const getContentTypes = async () => {
-    const {data} = await $authHost.get('api/type')
+export const getContentTypes = async (searchText) => {
+    const {data} = await $authHost.get('api/type', {params: {name: searchText}})
     return data
 }
 
