@@ -20,5 +20,3 @@ const start = async () => {
 start()
 
 
-//TODO сделать сохранение token не в локальное хранилище, а в cookie
-

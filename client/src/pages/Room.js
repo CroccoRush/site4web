@@ -33,7 +33,6 @@ const Room = observer(() => {
             })
 
     }, [])
-    //TODO сделать нормальную передачу контента, сделать контент разнообразным(видео, картинки, текст)
     return (
         <Container
             style={{border: "3px solid #ddd", borderRadius: "5px", height:"87vh", paddingBottom:"10px"}}
