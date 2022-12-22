@@ -2,7 +2,7 @@ config:
   target: "http://localhost:5000/api"
   phases:
     - duration: 100
-      arrivalRate: 300
+      arrivalRate: 200
       name: HardTest
   payload:
     - path: "all-csv/users.csv"
@@ -34,12 +34,16 @@ scenarios:
     flow:
       - get:
           url: "/room"
+          expect:
+            - statusCode: 200
   - name: "get rooms by name"
     flow:
       - get:
           url: "/room"
           qs:
             name: "title"
+          expect:
+            - statusCode: 200
   - name: "get rooms from different pages"
     flow:
       - get:
@@ -49,10 +53,16 @@ scenarios:
             typeId: "typeId"
             page: "page"
             limit: "limit"
+          expect:
+            - statusCode: 200
+
   - name: "get one room"
     flow:
       - get:
           url: "/room/{{ roomId }}"
+          expect:
+            - statusCode: 200
+
   - name: "check auth"
     flow:
       - get:
@@ -81,6 +91,10 @@ scenarios:
           capture:
             - json: "$.token"
               as: "token"
+          expect:
+            statusCode:
+              - 500
+              - 200
       - get:
           url: "/user/auth"
           headers:
@@ -91,3 +105,5 @@ scenarios:
           url: "/message"
           qs:
             chatId: "{{ chatId }}"
+          expect:
+            - statusCode: 200
