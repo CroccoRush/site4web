@@ -29,45 +29,53 @@ class UserController{
     }
 
     async login(req, res, next) {
-        const {username, password} = req.body
-        const user = await User.findOne({ where : { username } })
-        if (!user) {
-            return next(ApiError.internal('Пользователь с таким именем не найден'))
-        } else if (!user.password){
-            return next(ApiError.internal('У пользователя с таким именем в качестве способа входа выбран Github'))
+        try {
+            const {username, password} = req.body
+            const user = await User.findOne({ where : { username } })
+            if (!user) {
+                return next(ApiError.internal('Пользователь с таким именем не найден'))
+            } else if (!user.password){
+                return next(ApiError.internal('У пользователя с таким именем в качестве способа входа выбран Github'))
+            }
+            let comparePassword = bcrypt.compareSync(password, user.password)
+            if (!comparePassword) {
+                return next(ApiError.internal('Указан неверный пароль'))
+            }
+            const token = generateJwt(user.id, user.username, user.role)
+            return res.json({ token, userId: user.id, role: user.role})
+        } catch (e) {
+            return next(ApiError.badRequest("Неверные данные"))
         }
-        let comparePassword = bcrypt.compareSync(password, user.password)
-        if (!comparePassword) {
-            return next(ApiError.internal('Указан неверный пароль'))
-        }
-        const token = generateJwt(user.id, user.username, user.role)
-        return res.json({ token, userId: user.id, role: user.role})
     }
 
     async oauth(req, res, next) {
-        const { OAuthApp, createNodeMiddleware } = require("@octokit/oauth-app");
-        const {code} = req.body
-        const clientId = "4bc6dde507d800eabd20";
-        const clientSecret = "6b2f67198d131a197777c822ba52ff00647aab3a";
-        const oauth_app = new OAuthApp({
-            clientType: "oauth-app",
-            clientId: clientId,
-            clientSecret: clientSecret,
-            defaultScopes: [ 'user' ]
-        });
-        const octokot = await oauth_app.getUserOctokit({ code: code });
-        const data = await octokot.request("GET /user", {});
-        const username = data.data.login;
-        if (username)
+        try{
+            const { OAuthApp, createNodeMiddleware } = require("@octokit/oauth-app");
+            const {code} = req.body
+            const clientId = "4bc6dde507d800eabd20";
+            const clientSecret = "6b2f67198d131a197777c822ba52ff00647aab3a";
+            const oauth_app = new OAuthApp({
+                clientType: "oauth-app",
+                clientId: clientId,
+                clientSecret: clientSecret,
+                defaultScopes: [ 'user' ]
+            });
+            const octokot = await oauth_app.getUserOctokit({ code: code });
+            const data = await octokot.request("GET /user", {});
+            const username = data.data.login;
+            if (username)
+                var user = await User.findOne({ where : { username } })
+            else return next(ApiError.internal('Не удалось получить данные о пользователе'))
+            if (!user) {
+                const user = await User.create({ username, password : null, role : "USER"})
+            } else if (user.password)
+                return next(ApiError.internal('У пользователя с таким именем в качестве способа входа выбран пароль'))
             var user = await User.findOne({ where : { username } })
-        else return next(ApiError.internal('Не удалось получить данные о пользователе'))
-        if (!user) {
-            const user = await User.create({ username, password : null, role : "USER"})
-        } else if (user.password)
-            return next(ApiError.internal('У пользователя с таким именем в качестве способа входа выбран пароль'))
-        var user = await User.findOne({ where : { username } })
-        const token = generateJwt(user.id, user.username, user.role)
-        return res.json({ token, userId: user.id, role: user.role})
+            const token = generateJwt(user.id, user.username, user.role)
+            return res.json({ token, userId: user.id, role: user.role})
+        } catch (e) {
+            return next(ApiError.badRequest("Неверные данные"))
+        }
     }
 
     async check(req, res, next) {
