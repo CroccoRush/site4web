@@ -79,20 +79,18 @@ const Auth = observer(() => {
                             { isLogin ? "Войти" : "Зарегистрироваться" }
                         </Button>
                     </Col>
-                    <Form style={{ flex: 10, marginBottom: 10 }}>
                     <Button
-                        variant = {'outline-primary'}
-                        icon
-                        primary
-                        labelPosition="left"
+                        //variant = {'outline-primary'}
+                        //icon
+                        //primary
+                        //labelPosition="left"
+                        className="mt-3"
                         as="a"
                         href={githubUrl}
-                        onClick={[() => history.push(OAUTH_ROUTE), click]}
+                        onClick={() => history.push(OAUTH_ROUTE)}
                     >
-                        <Icon name="github" />
                         Login via GitHub
                     </Button>
-                    </Form>
                 </Form>
             </Card>
         </Container>

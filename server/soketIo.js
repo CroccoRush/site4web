@@ -28,14 +28,14 @@ const socketIo = (socket) => {
         const chat = await Chat.findOne({ where: { id: chatId } })
         const user = await User.findOne({ where: { id: userId } })
         if (chat && user) {
-            const message = await Message.create({text, chatId, userId, senderName: user.email});
+            const message = await Message.create({text, chatId, userId, senderName: user.username});
             socket.broadcast.emit("NEW_MESSAGE", {
                 id: message.id,
                 text: message.text,
                 userId,
                 chatId,
                 createdAt: message.createdAt,
-                senderName: user.email
+                senderName: user.username
             });
         }
     })
