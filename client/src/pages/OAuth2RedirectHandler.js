@@ -15,14 +15,11 @@ const OAuth2RedirectHandler = observer(() => {
     const history = useHistory()
     var qs = require('qs');
     const code = qs.parse(location.search, { ignoreQueryPrefix: true }).code
-    console.log(code);
     
     const auth = async (code) => {
         try {
             let data
             data = await oauth(code)
-            console.log(data)
-            console.log('Успешный залогин')
             user.setUser(data);
             user.setIsAuth(true);
             history.push(EXPOSITION_ROUTE)
