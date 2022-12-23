@@ -1,5 +1,4 @@
 import React, {createContext} from 'react';
-//import ReactDOM from 'react-dom';
 import App from './App';
 import { createRoot } from 'react-dom/client';
 import UserStore from "./store/UserStore";
@@ -19,14 +18,4 @@ root.render(
 
     </Context.Provider>
 );
-
-// ReactDOM.render(
-//     <Context.Provider value={{
-//         user: new UserStore()
-//     }}>
-//         <App />,
-//
-//     </Context.Provider>,
-//     document.getElementById('root')
-// );
 

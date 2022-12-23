@@ -31,6 +31,7 @@ export const check = async () => {
     return jwtDecode(data.token)
 }
 
+
 export const deleteUser = async (username) => {
     await $authHost.delete('api/user/delete',  {data : {username : username}})
 }

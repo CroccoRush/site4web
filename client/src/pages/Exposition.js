@@ -15,7 +15,7 @@ const Exposition = observer(() => {
     const [roomsCount, setRoomsCount] = useState()
     const [searchText, setSearchText] = useState('')
     const [limit] = useState(2)
-    let searchAria
+    const [searchAria, setSearchAria] = useState(searchText)
 
     useEffect(() => {
         if (room.selectedTypeId) {
@@ -40,7 +40,7 @@ const Exposition = observer(() => {
                     >
                         Создать новую комнату
                     </Button>
-                    <TypeBar/>
+                    <TypeBar searchText={searchText}/>
                 </Col>
                 <Col md={9} style={{minHeight: '85vh'}} className={"d-flex flex-column align-items-center"}>
                     <InputGroup className="mb-3" style={{height: "42px"}}>
@@ -48,6 +48,7 @@ const Exposition = observer(() => {
                             variant="outline-primary"
                             id="button-addon1"
                             onClick={() => {
+                                if (searchText === searchAria) return
                                 room.setSelectedPage(1)
                                 setSearchText(searchAria)
                             }}
@@ -57,7 +58,7 @@ const Exposition = observer(() => {
                         <Form.Control
                             placeholder="Название комнаты..."
                             value={searchAria}
-                            onChange={e => searchAria = e.target.value}
+                            onChange={e => setSearchAria(e.target.value)}
                         />
                     </InputGroup>
 

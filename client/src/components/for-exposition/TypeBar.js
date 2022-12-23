@@ -4,11 +4,11 @@ import {Badge, Button, ListGroup} from "react-bootstrap";
 import {getContentTypesCount, getContentTypes} from "../../http/roomAPI";
 import {Context} from "../../index";
 
-const TypeBar = observer(() => {
+const TypeBar = observer(({searchText}) => {
     const {room} = useContext(Context)
     const [types, setTypes] = useState([])
     useEffect(() => {
-        getContentTypes().then(data => {
+        getContentTypes(searchText).then(data => {
             for (let i in data) {
                 getContentTypesCount(data[i].id).then(count => {
                     data[i]['count'] = count
@@ -16,7 +16,7 @@ const TypeBar = observer(() => {
                 })
             }
         })
-    }, [])
+    }, [searchText])
 
     return (
         <div>

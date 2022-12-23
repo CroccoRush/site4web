@@ -22,14 +22,15 @@ const NavBar = observer(() => {
             <Container>
                 <Navbar.Brand
                     onClick={() => history.push(HOME_ROUTE)}
+                    style={{cursor: 'pointer'}}
                 >
                     <img
                         alt=""
                         src="/mainLogo.svg"
                         width="30"
                         height="30"
-                        className="d-inline-block align-top"
-                    />{' site4web'}
+                        className="d-inline-block align-top me-1"
+                    />{'site4web'}
                 </Navbar.Brand>
                 {user.isAuth ?
                     <Nav className="ml-auto">

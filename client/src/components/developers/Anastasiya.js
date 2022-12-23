@@ -26,6 +26,4 @@ const Anastasiya = () => {
     );
 };
 
-//TODO придумать что ещё делала Настя
-
 export default Anastasiya;

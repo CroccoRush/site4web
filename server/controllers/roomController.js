@@ -35,13 +35,13 @@ class RoomController{
             let offset = limit * (page - 1)
             if (typeId && name) {
                 const room = await sequelize.query(
-                    `SELECT * FROM rooms WHERE \"name\" LIKE '%${name}%' AND \"contentId\" IN (SELECT id FROM contents WHERE \"typeId\" = ${typeId})`,
+                    `SELECT * FROM rooms WHERE \"name\" LIKE '%${name}%' AND \"contentId\" IN (SELECT id FROM contents WHERE \"typeId\" = ${typeId}) LIMIT ${limit} OFFSET ${offset}`,
                     { type: QueryTypes.SELECT }
                 );
                 return res.json(room)
             } else if (typeId) {
                 const room = await sequelize.query(
-                    `SELECT * FROM rooms WHERE \"contentId\" IN (SELECT id FROM contents WHERE \"typeId\" = ${typeId})`,
+                    `SELECT * FROM rooms WHERE \"contentId\" IN (SELECT id FROM contents WHERE \"typeId\" = ${typeId}) LIMIT ${limit} OFFSET ${offset}`,
                     { type: QueryTypes.SELECT }
                 );
                 return res.json(room)
